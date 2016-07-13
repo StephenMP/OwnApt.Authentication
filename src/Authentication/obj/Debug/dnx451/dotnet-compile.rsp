@@ -1,0 +1,21 @@
+--temp-output:F:\Dev\Authentication\src\Authentication\obj\Debug\dnx451\
+--out:F:\Dev\Authentication\src\Authentication\bin\Debug\dnx451\Authentication.dll
+--define:DEBUG
+--define:TRACE
+--define:DNX451
+--suppress-warning:CS1701
+--suppress-warning:CS1702
+--suppress-warning:CS1705
+--optimize:False
+--output-name:Authentication
+--file-version:1.0.0.0
+--version:1.0.0.0
+--informational-version:1.0.0
+--target-framework:.NETFramework,Version=v4.5.1
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\mscorlib.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\System.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\System.Core.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\Microsoft.CSharp.dll
+F:\Dev\Authentication\src\Authentication\Domain\Interface\IHmacService.cs
+F:\Dev\Authentication\src\Authentication\Domain\Service\HmacService.cs
+F:\Dev\Authentication\src\Authentication\Properties\AssemblyInfo.cs
