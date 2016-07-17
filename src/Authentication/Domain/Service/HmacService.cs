@@ -1,14 +1,13 @@
-﻿using Authentication.Domain.Interface;
+﻿using OwnApt.Authentication.Domain.Interface;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentication.Domain.Service
+namespace OwnApt.Authentication.Domain.Service
 {
     public class HmacService : IHmacService
     {
-        // Comment for testing purposes
         #region Public Methods
 
         public async Task<string> CreateHmacStringAsync(string appId, string secretKey, string httpMethod, string jsonRequestBody = "")
@@ -51,17 +50,16 @@ namespace Authentication.Domain.Service
         private async Task<string> ComputeBase64SecretyKeyCombined(string appId, string secretKey, string httpMethod, long utcFileTimestamp, string guidSignature, string signedRequestBody)
         {
             var byteSecretKey = Encoding.UTF8.GetBytes(secretKey);
+            var secretKeyCombined = $"{secretKey}:{httpMethod}:{utcFileTimestamp}:{guidSignature}:{signedRequestBody}";
+            var byteSecretKeyCombined = Encoding.UTF8.GetBytes(secretKeyCombined);
             byte[] hashedSecretKey;
 
-            using (var hmac = new HMACSHA1())
+            using (var hmac = new HMACSHA1(byteSecretKey))
             {
-                hashedSecretKey = hmac.ComputeHash(byteSecretKey);
+                hashedSecretKey = hmac.ComputeHash(byteSecretKeyCombined);
             }
 
-            var secretKeyCombined = $"{hashedSecretKey}:{httpMethod}:{utcFileTimestamp}:{guidSignature}:{signedRequestBody}";
-            var byteSecretKeyCombined = Encoding.UTF8.GetBytes(secretKeyCombined);
             var computedBase64SecretKeyCombined = Convert.ToBase64String(byteSecretKeyCombined);
-
             return await Task.FromResult(computedBase64SecretKeyCombined);
         }
 
