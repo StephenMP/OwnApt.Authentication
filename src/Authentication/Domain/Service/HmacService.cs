@@ -8,6 +8,7 @@ namespace Authentication.Domain.Service
 {
     public class HmacService : IHmacService
     {
+        // Comment for testing purposes
         #region Public Methods
 
         public async Task<string> CreateHmacStringAsync(string appId, string secretKey, string httpMethod, string jsonRequestBody = "")
