@@ -1,10 +1,10 @@
-﻿using OwnApt.Authentication.Domain.Interface;
+﻿using Authentication.Domain.Interface;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwnApt.Authentication.Domain.Service
+namespace Authentication.Domain.Service
 {
     public class HmacService : IHmacService
     {
@@ -36,11 +36,6 @@ namespace OwnApt.Authentication.Domain.Service
                 && await ValidateTimeToLive(timeStamp)
                 && await ValidateBody(providedSignedRequestBody, jsonRequestBody)
                 && await ValidateSignedSecretKey(appId, secretKey, httpMethod, timeStamp, guidSignature, providedSignedSecretKey, providedSignedRequestBody);
-        }
-
-        private async Task<bool> ValidateHmacArray(string[] hmacArray)
-        {
-            return await Task.FromResult(hmacArray.Length == 5 || hmacArray.Length == 6);
         }
 
         #endregion Public Methods
@@ -82,6 +77,11 @@ namespace OwnApt.Authentication.Domain.Service
         {
             var computedBase64SignedBody = await this.ComputeSignedRequestBody(jsonRequestBody);
             return await Task.FromResult(computedBase64SignedBody == providedSignedRequestBody);
+        }
+
+        private async Task<bool> ValidateHmacArray(string[] hmacArray)
+        {
+            return await Task.FromResult(hmacArray.Length == 5 || hmacArray.Length == 6);
         }
 
         private async Task<bool> ValidateSignedSecretKey(string appId, string secretKey, string httpMethod, long utcFileTimestamp, string guidSignature, string providedSignedSecretKey, string signedRequestBody)

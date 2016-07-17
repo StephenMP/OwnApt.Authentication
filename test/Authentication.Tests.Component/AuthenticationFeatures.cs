@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Authentication.Tests.Component
 {
     public class AuthenticationFeatures
     {
+        #region Private Fields + Properties
+
         private AuthenticationSteps steps = new AuthenticationSteps();
+
+        #endregion Private Fields + Properties
+
+        #region Public Methods
 
         [Fact]
         public async Task CanCreateHmacString()
@@ -20,21 +23,6 @@ namespace Authentication.Tests.Component
             this.steps.GivenIHaveAnHmacService();
             await this.steps.WhenICreateHmacStringAsync();
             this.steps.ThenICanVerifyICreateHmacStringAsync();
-        }
-
-        [Fact]
-        public async Task CanValidateHmacString()
-        {
-            this.steps.GivenIHaveAnAppId();
-            this.steps.GivenIHaveASecretKey();
-            this.steps.GivenIHaveARequestMethod();
-            this.steps.GivenIHaveAJsonRequestBody();
-            this.steps.GivenIHaveAnHmacService();
-
-            await this.steps.WhenICreateHmacStringAsync();
-            await this.steps.WhenIValidateHmacStringAsync();
-
-            this.steps.ThenICanVerifyIValidateHmacStringAsync();
         }
 
         [Fact]
@@ -90,5 +78,22 @@ namespace Authentication.Tests.Component
 
             this.steps.ThenICanVerifyICannotValidateHmacStringAsync();
         }
+
+        [Fact]
+        public async Task CanValidateHmacString()
+        {
+            this.steps.GivenIHaveAnAppId();
+            this.steps.GivenIHaveASecretKey();
+            this.steps.GivenIHaveARequestMethod();
+            this.steps.GivenIHaveAJsonRequestBody();
+            this.steps.GivenIHaveAnHmacService();
+
+            await this.steps.WhenICreateHmacStringAsync();
+            await this.steps.WhenIValidateHmacStringAsync();
+
+            this.steps.ThenICanVerifyIValidateHmacStringAsync();
+        }
+
+        #endregion Public Methods
     }
 }
