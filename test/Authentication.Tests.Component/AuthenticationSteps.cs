@@ -1,5 +1,5 @@
-﻿using Authentication.Domain.Interface;
-using Authentication.Domain.Service;
+﻿using OwnApt.Authentication.Domain.Interface;
+using OwnApt.Authentication.Domain.Service;
 using System;
 using System.Text;
 using System.Threading.Tasks;
