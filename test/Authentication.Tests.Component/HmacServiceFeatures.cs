@@ -3,11 +3,11 @@ using Xunit;
 
 namespace Authentication.Tests.Component
 {
-    public class AuthenticationFeatures
+    public class HmacServiceFeatures
     {
         #region Private Fields + Properties
 
-        private AuthenticationSteps steps = new AuthenticationSteps();
+        private HmacServiceSteps steps = new HmacServiceSteps();
 
         #endregion Private Fields + Properties
 

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Authentication.Tests.Component
 {
-    internal class AuthenticationSteps
+    internal class HmacServiceSteps
     {
         #region Private Fields + Properties
 
