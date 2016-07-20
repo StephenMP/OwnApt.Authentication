@@ -25,7 +25,7 @@ namespace OwnApt.Authentication.Domain.Filters
             this.hmacService = new HmacService();
             this.allowedApps = new Dictionary<string, string>
             {
-                {"abcd1234", "1234abcd"}
+                {"d63c7a5913dd472481e1d88bbc2bc420", "qlTOlX/p2tyQd1k/0T4nLfwB/Lk="}
             };
         }
 
