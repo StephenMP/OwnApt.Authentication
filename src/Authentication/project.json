@@ -1,7 +1,8 @@
-﻿{
+{
   "version": "1.0.0-*",
 
   "dependencies": {
+    "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final"
   },
 
   "frameworks": {
