@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
-using OwnApt.Authentication.Domain.Interface;
-using OwnApt.Authentication.Domain.Service;
+using OwnApt.Authentication.Common.Interface;
+using OwnApt.Authentication.Common.Service;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace OwnApt.Authentication.Domain.Filters
+namespace OwnApt.Authentication.Api.Filter
 {
     public class AuthenticationFilter : ActionFilterAttribute, IAsyncAuthorizationFilter
     {

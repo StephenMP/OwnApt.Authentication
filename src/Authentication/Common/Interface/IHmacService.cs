@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace OwnApt.Authentication.Domain.Interface
+namespace OwnApt.Authentication.Common.Interface
 {
     public interface IHmacService
     {

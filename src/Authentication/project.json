@@ -7,7 +7,9 @@
   },
 
   "dependencies": {
-    "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final"
+    "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
+    "Microsoft.Net.Http": "2.2.22",
+    "System.Threading.Tasks": "4.0.11"
   },
 
   "frameworks": {

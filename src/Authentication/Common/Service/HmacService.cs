@@ -1,10 +1,10 @@
-﻿using OwnApt.Authentication.Domain.Interface;
+﻿using OwnApt.Authentication.Common.Interface;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwnApt.Authentication.Domain.Service
+namespace OwnApt.Authentication.Common.Service
 {
     public class HmacService : IHmacService
     {
