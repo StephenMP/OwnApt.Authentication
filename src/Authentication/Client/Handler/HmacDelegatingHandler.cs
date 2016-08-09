@@ -12,9 +12,9 @@ namespace OwnApt.Authentication.Client.Handler
         #region Private Fields + Properties
 
         private string appId;
+        private string cachedHmacString;
         private IHmacService hmacService;
         private string secretKey;
-        private string cachedHmacString;
 
         #endregion Private Fields + Properties
 
@@ -28,7 +28,7 @@ namespace OwnApt.Authentication.Client.Handler
         }
 
         public HmacDelegatingHandler(string appId, string secretKey, string cachedHmacString) : this(appId, secretKey)
-        { 
+        {
             this.cachedHmacString = cachedHmacString;
         }
 

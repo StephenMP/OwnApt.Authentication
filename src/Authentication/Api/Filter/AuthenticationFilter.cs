@@ -81,11 +81,6 @@ namespace OwnApt.Authentication.Api.Filter
             return (values.Length == 4 || values.Length == 5) ? values : null;
         }
 
-        private async Task<bool> ValidateAppId(string appId)
-        {
-            return await Task.FromResult(this.allowedApps.ContainsKey(appId));
-        }
-
         private async Task<string> ReadRequestBody(Stream body)
         {
             string requestBody;
@@ -96,6 +91,11 @@ namespace OwnApt.Authentication.Api.Filter
             }
 
             return await Task.FromResult(requestBody);
+        }
+
+        private async Task<bool> ValidateAppId(string appId)
+        {
+            return await Task.FromResult(this.allowedApps.ContainsKey(appId));
         }
 
         #endregion Private Methods
