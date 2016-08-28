@@ -43,7 +43,7 @@ namespace Authentication.Tests.Component
             this.steps.ThenICanVerifyICannotValidateHmacStringAsync();
         }
 
-        [Fact]
+        [Fact(Skip = "Removed body sign validation temporarily")]
         public async Task CannotValidateHmacStringDueToDifferentJsonRequestBody()
         {
             this.steps.GivenIHaveAnAppId();
