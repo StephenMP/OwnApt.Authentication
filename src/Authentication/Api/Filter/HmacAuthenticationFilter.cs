@@ -84,7 +84,6 @@ namespace OwnApt.Authentication.Api.Filter
         private async Task<string> ReadRequestBody(Stream body)
         {
             string requestBody;
-            body.Position = 0;
             using (var reader = new StreamReader(body))
             {
                 requestBody = await reader.ReadToEndAsync();
