@@ -62,16 +62,16 @@ namespace OwnApt.Authentication.Api.Filter
             }
 
             // We need to copy the body stream since reading it consumes it
-            var tempStream = new MemoryStream();
-            context.HttpContext.Request.Body.CopyTo(tempStream);
+            //var tempStream = new MemoryStream();
+            //context.HttpContext.Request.Body.CopyTo(tempStream);
 
-            var rawBody = tempStream.ToArray();
-            var bodyStreamToConsume = new MemoryStream(rawBody);
-            context.HttpContext.Request.Body = new MemoryStream(rawBody);
+            //var rawBody = tempStream.ToArray();
+            //var bodyStreamToConsume = new MemoryStream(rawBody);
+            //context.HttpContext.Request.Body = new MemoryStream(rawBody);
 
+            //var requestBody = await this.ReadRequestBody(bodyStreamToConsume);
             var secretKey = this.allowedApps[appId];
-            var requestBody = await this.ReadRequestBody(bodyStreamToConsume);
-            var isValid = await this.hmacService.ValidateHmacStringAsync(authHeaderValues[1], secretKey, requestBody);
+            var isValid = await this.hmacService.ValidateHmacStringAsync(authHeaderValues[1], secretKey, "");//, requestBody);
             if (!isValid)
             {
                 context.Result = new UnauthorizedResult();
