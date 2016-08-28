@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Filters;
-using Microsoft.Extensions.Primitives;
-using OwnApt.Authentication.Common.Interface;
-using OwnApt.Authentication.Common.Service;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Mvc;
+using OwnApt.Authentication.Common.Interface;
+using OwnApt.Authentication.Common.Service;
 
 namespace OwnApt.Authentication.Api.Filter
 {
-    public class AuthenticationFilter : ActionFilterAttribute, IAsyncAuthorizationFilter
+    public class HmacAuthenticationFilter : ActionFilterAttribute, IAsyncAuthorizationFilter
     {
         #region Private Fields + Properties
 
@@ -20,7 +20,7 @@ namespace OwnApt.Authentication.Api.Filter
 
         #region Public Constructors + Destructors
 
-        public AuthenticationFilter()
+        public HmacAuthenticationFilter()
         {
             this.hmacService = new HmacService();
             this.allowedApps = new Dictionary<string, string>
@@ -33,13 +33,13 @@ namespace OwnApt.Authentication.Api.Filter
 
         #region Public Methods
 
-        public async Task OnAuthorizationAsync(AuthorizationContext context)
+        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             // Get and check the authorization header
             var authHeader = context.HttpContext.Request.Headers["authorization"];
             if (authHeader == default(StringValues))
             {
-                context.Result = new HttpUnauthorizedResult();
+                context.Result = new UnauthorizedResult();
                 return;
             }
 
@@ -48,7 +48,7 @@ namespace OwnApt.Authentication.Api.Filter
             var authScheme = authHeaderValues[0];
             if (authScheme != "amx")
             {
-                context.Result = new HttpUnauthorizedResult();
+                context.Result = new UnauthorizedResult();
                 return;
             }
 
@@ -57,7 +57,7 @@ namespace OwnApt.Authentication.Api.Filter
             var appIsRecognized = await ValidateAppId(appId);
             if (!appIsRecognized)
             {
-                context.Result = new HttpUnauthorizedResult();
+                context.Result = new UnauthorizedResult();
                 return;
             }
 
@@ -66,7 +66,7 @@ namespace OwnApt.Authentication.Api.Filter
             var isValid = await this.hmacService.ValidateHmacStringAsync(authHeaderValues[1], secretKey, requestBody);
             if (!isValid)
             {
-                context.Result = new HttpUnauthorizedResult();
+                context.Result = new UnauthorizedResult();
                 return;
             }
         }

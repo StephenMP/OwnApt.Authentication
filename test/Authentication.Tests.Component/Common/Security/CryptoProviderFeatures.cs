@@ -16,8 +16,13 @@ namespace Authentication.Tests.Component
         public void CanDecrypt()
         {
             this.steps.GivenIHaveDataToEncrypt();
+
             this.steps.WhenIEncryptData();
+
+            this.steps.ThenICanVerifyIEncryptData();
+
             this.steps.WhenIDecryptData();
+
             this.steps.ThenICanVerifyIDecryptData();
         }
 
