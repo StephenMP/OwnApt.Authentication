@@ -34,7 +34,7 @@ namespace OwnApt.Authentication.Common.Service
 
             return await ValidateHmacArray(hmacArray)
                 && await ValidateTimeToLive(timeStamp)
-                && await ValidateBody(providedSignedRequestBody, jsonRequestBody)
+                //&& await ValidateBody(providedSignedRequestBody, jsonRequestBody)
                 && await ValidateSignedSecretKey(appId, secretKey, httpMethod, timeStamp, guidSignature, providedSignedSecretKey, providedSignedRequestBody);
         }
 
