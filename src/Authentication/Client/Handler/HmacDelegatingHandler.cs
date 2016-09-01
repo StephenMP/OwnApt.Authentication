@@ -12,7 +12,6 @@ namespace OwnApt.Authentication.Client.Handler
         #region Private Fields + Properties
 
         private string appId;
-        private string cachedHmacString;
         private IHmacService hmacService;
         private string secretKey;
 
@@ -27,25 +26,15 @@ namespace OwnApt.Authentication.Client.Handler
             this.secretKey = secretKey;
         }
 
-        public HmacDelegatingHandler(string appId, string secretKey, string cachedHmacString) : this(appId, secretKey)
-        {
-            this.cachedHmacString = cachedHmacString;
-        }
-
         #endregion Public Constructors + Destructors
 
         #region Protected Methods
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var hmacString = this.cachedHmacString;
-
-            if (string.IsNullOrWhiteSpace(hmacString))
-            {
-                var httpMethod = request.Method.Method;
-                var requestBody = request.Content == null ? "" : await request.Content.ReadAsStringAsync();
-                hmacString = await hmacService.CreateHmacStringAsync(this.appId, this.secretKey, httpMethod, requestBody);
-            }
+            var httpMethod = request.Method.Method;
+            var requestBody = request.Content == null ? "" : await request.Content.ReadAsStringAsync();
+            var hmacString = await hmacService.CreateHmacStringAsync(this.appId, this.secretKey, httpMethod, requestBody);
 
             request.Headers.Authorization = new AuthenticationHeaderValue("amx", hmacString);
             return await base.SendAsync(request, cancellationToken);
