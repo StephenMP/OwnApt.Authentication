@@ -6,11 +6,17 @@
 --suppress-warning:CS1701
 --suppress-warning:CS1702
 --suppress-warning:CS1705
+--language-version:csharp6
+--platform:x64
+--warnings-as-errors:True
 --optimize:False
 --output-name:Authentication
+--description:This library contains implementations needed by both Client and API for OwnApt Client -> API Authentication
+--copyright:OwnApt, LLC
 --file-version:1.0.0.0
 --version:1.0.0.0
 --informational-version:1.0.0
+--neutral-language:en-US
 --target-framework:.NETStandard,Version=v1.6
 --reference:C:\Users\Stephen\.nuget\packages\Microsoft.AspNetCore.Authorization\1.0.0\lib\netstandard1.3\Microsoft.AspNetCore.Authorization.dll
 --reference:C:\Users\Stephen\.nuget\packages\Microsoft.AspNetCore.Hosting.Abstractions\1.0.0\lib\netstandard1.3\Microsoft.AspNetCore.Hosting.Abstractions.dll

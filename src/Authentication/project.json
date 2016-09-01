@@ -1,5 +1,5 @@
 {
-  "name": "OwnApt.Authentication",
+  "name": "Authentication",
   "version": "1.0.0-*",
   "description": "This library contains implementations needed by both Client and API for OwnApt Client -> API Authentication",
   "copyright": "OwnApt, LLC",
