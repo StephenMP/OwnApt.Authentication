@@ -5,11 +5,11 @@ namespace Authentication.Tests.Component
 {
     public class HmacServiceFeatures
     {
-        #region Private Fields + Properties
+        #region Private Fields
 
         private HmacServiceSteps steps = new HmacServiceSteps();
 
-        #endregion Private Fields + Properties
+        #endregion Private Fields
 
         #region Public Methods
 

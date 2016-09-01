@@ -9,7 +9,7 @@ namespace Authentication.Tests.Component
 {
     internal class HmacServiceSteps
     {
-        #region Private Fields + Properties
+        #region Private Fields
 
         private string appId;
         private IHmacService hmacService;
@@ -21,7 +21,7 @@ namespace Authentication.Tests.Component
         private string[] requestArray = new string[] { "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" };
         private string secretKey;
 
-        #endregion Private Fields + Properties
+        #endregion Private Fields
 
         #region Internal Methods
 

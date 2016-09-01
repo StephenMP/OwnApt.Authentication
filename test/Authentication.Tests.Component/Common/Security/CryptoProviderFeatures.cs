@@ -4,11 +4,11 @@ namespace Authentication.Tests.Component
 {
     public class CryptoProviderFeatures
     {
-        #region Public Fields + Properties
+        #region Public Fields
 
         public CryptoProviderSteps steps = new CryptoProviderSteps();
 
-        #endregion Public Fields + Properties
+        #endregion Public Fields
 
         #region Public Methods
 

@@ -1,5 +1,10 @@
 {
+  "name": "OwnApt.Authentication",
   "version": "1.0.0-*",
+  "description": "This library contains implementations needed by both Client and API for OwnApt Client -> API Authentication",
+  "copyright": "OwnApt, LLC",
+  "authors": [ "OwnApt, LLC" ],
+  "language": "en-US",
 
   "dependencies": {
     "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
@@ -11,5 +16,12 @@
     "netstandard1.6": {
       "imports": "dnxcore50"
     }
+  },
+
+  "buildOptions": {
+    "warningsAsErrors": true,
+    "optimize": true,
+    "platform": "x64",
+    "languageVersion": "csharp6"
   }
 }

@@ -9,15 +9,15 @@ namespace OwnApt.Authentication.Client.Handler
 {
     public class HmacDelegatingHandler : DelegatingHandler
     {
-        #region Private Fields + Properties
+        #region Private Fields
 
         private string appId;
         private IHmacService hmacService;
         private string secretKey;
 
-        #endregion Private Fields + Properties
+        #endregion Private Fields
 
-        #region Public Constructors + Destructors
+        #region Public Constructors
 
         public HmacDelegatingHandler(string appId, string secretKey)
         {
@@ -26,7 +26,7 @@ namespace OwnApt.Authentication.Client.Handler
             this.secretKey = secretKey;
         }
 
-        #endregion Public Constructors + Destructors
+        #endregion Public Constructors
 
         #region Protected Methods
 

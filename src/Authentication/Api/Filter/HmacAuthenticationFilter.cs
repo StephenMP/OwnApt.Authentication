@@ -1,24 +1,24 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
-using Microsoft.AspNetCore.Mvc;
 using OwnApt.Authentication.Common.Interface;
 using OwnApt.Authentication.Common.Service;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace OwnApt.Authentication.Api.Filter
 {
     public class HmacAuthenticationFilter : ActionFilterAttribute, IAsyncAuthorizationFilter
     {
-        #region Private Fields + Properties
+        #region Private Fields
 
         private Dictionary<string, string> allowedApps;
         private IHmacService hmacService;
 
-        #endregion Private Fields + Properties
+        #endregion Private Fields
 
-        #region Public Constructors + Destructors
+        #region Public Constructors
 
         public HmacAuthenticationFilter()
         {
@@ -29,7 +29,7 @@ namespace OwnApt.Authentication.Api.Filter
             };
         }
 
-        #endregion Public Constructors + Destructors
+        #endregion Public Constructors
 
         #region Public Methods
 

@@ -6,13 +6,13 @@ namespace Authentication.Tests.Component
 {
     public class CryptoProviderSteps
     {
-        #region Private Fields + Properties
+        #region Private Fields
 
         private string dataToEncrypt;
         private string decryptedData;
         private string encryptedData;
 
-        #endregion Private Fields + Properties
+        #endregion Private Fields
 
         #region Internal Methods
 
