@@ -6,15 +6,15 @@ namespace Authentication.Tests.Component
 {
     public class CryptoProviderSteps
     {
-        #region Private Fields
+        #region Fields
 
         private string dataToEncrypt;
         private string decryptedData;
         private string encryptedData;
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Internal Methods
+        #region Methods
 
         internal void GivenIHaveDataToEncrypt()
         {
@@ -45,6 +45,6 @@ namespace Authentication.Tests.Component
             this.encryptedData = CryptoProvider.Encrypt(dataToEncrypt);
         }
 
-        #endregion Internal Methods
+        #endregion Methods
     }
 }

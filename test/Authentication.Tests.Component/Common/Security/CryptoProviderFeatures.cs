@@ -4,13 +4,13 @@ namespace Authentication.Tests.Component
 {
     public class CryptoProviderFeatures
     {
-        #region Public Fields
+        #region Fields
 
         public CryptoProviderSteps steps = new CryptoProviderSteps();
 
-        #endregion Public Fields
+        #endregion Fields
 
-        #region Public Methods
+        #region Methods
 
         [Fact]
         public void CanDecrypt()
@@ -34,6 +34,6 @@ namespace Authentication.Tests.Component
             this.steps.ThenICanVerifyIEncryptData();
         }
 
-        #endregion Public Methods
+        #endregion Methods
     }
 }

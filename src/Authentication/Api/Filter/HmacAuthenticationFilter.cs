@@ -4,21 +4,20 @@ using Microsoft.Extensions.Primitives;
 using OwnApt.Authentication.Common.Interface;
 using OwnApt.Authentication.Common.Service;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace OwnApt.Authentication.Api.Filter
 {
-    public class HmacAuthenticationFilter : ActionFilterAttribute, IAsyncAuthorizationFilter
+    public sealed class HmacAuthenticationFilter : ActionFilterAttribute, IAsyncAuthorizationFilter
     {
-        #region Private Fields
+        #region Fields
 
-        private Dictionary<string, string> allowedApps;
-        private IHmacService hmacService;
+        private readonly Dictionary<string, string> allowedApps;
+        private readonly IHmacService hmacService;
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Constructors
+        #region Constructors
 
         public HmacAuthenticationFilter()
         {
@@ -29,9 +28,9 @@ namespace OwnApt.Authentication.Api.Filter
             };
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Public Methods
+        #region Methods
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
@@ -54,7 +53,7 @@ namespace OwnApt.Authentication.Api.Filter
 
             // Run the values through our HMAC algorithm
             var appId = authHeaderValues[1].Split(':')[0];
-            var appIsRecognized = await ValidateAppId(appId);
+            var appIsRecognized = await ValidateAppIdAsync(appId);
             if (!appIsRecognized)
             {
                 context.Result = new UnauthorizedResult();
@@ -69,7 +68,7 @@ namespace OwnApt.Authentication.Api.Filter
             //var bodyStreamToConsume = new MemoryStream(rawBody);
             //context.HttpContext.Request.Body = new MemoryStream(rawBody);
 
-            //var requestBody = await this.ReadRequestBody(bodyStreamToConsume);
+            //var requestBody = await this.ReadRequestBodyAsync(bodyStreamToConsume);
             var secretKey = this.allowedApps[appId];
             var isValid = await this.hmacService.ValidateHmacStringAsync(authHeaderValues[1], secretKey, "");//, requestBody);
             if (!isValid)
@@ -79,32 +78,22 @@ namespace OwnApt.Authentication.Api.Filter
             }
         }
 
-        #endregion Public Methods
+        //private static async Task<string> ReadRequestBodyAsync(Stream body)
+        //{
+        //    string requestBody;
+        //    using (var reader = new StreamReader(body))
+        //    {
+        //        requestBody = await reader.ReadToEndAsync();
+        //    }
 
-        #region Private Methods
+        //    return await Task.FromResult(requestBody);
+        //}
 
-        private string[] ParseAuthHeaderValues(string authHeader)
-        {
-            var values = authHeader.Split(':');
-            return (values.Length == 4 || values.Length == 5) ? values : null;
-        }
-
-        private async Task<string> ReadRequestBody(Stream body)
-        {
-            string requestBody;
-            using (var reader = new StreamReader(body))
-            {
-                requestBody = await reader.ReadToEndAsync();
-            }
-
-            return await Task.FromResult(requestBody);
-        }
-
-        private async Task<bool> ValidateAppId(string appId)
+        private async Task<bool> ValidateAppIdAsync(string appId)
         {
             return await Task.FromResult(this.allowedApps.ContainsKey(appId));
         }
 
-        #endregion Private Methods
+        #endregion Methods
     }
 }

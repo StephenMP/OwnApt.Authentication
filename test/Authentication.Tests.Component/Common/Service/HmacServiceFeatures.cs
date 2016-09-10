@@ -5,16 +5,16 @@ namespace Authentication.Tests.Component
 {
     public class HmacServiceFeatures
     {
-        #region Private Fields
+        #region Fields
 
-        private HmacServiceSteps steps = new HmacServiceSteps();
+        private readonly HmacServiceSteps steps = new HmacServiceSteps();
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Methods
+        #region Methods
 
         [Fact]
-        public async Task CanCreateHmacString()
+        public async Task CanCreateHmacStringAsync()
         {
             this.steps.GivenIHaveAnAppId();
             this.steps.GivenIHaveASecretKey();
@@ -22,11 +22,11 @@ namespace Authentication.Tests.Component
             this.steps.GivenIHaveAJsonRequestBody();
             this.steps.GivenIHaveAnHmacService();
             await this.steps.WhenICreateHmacStringAsync();
-            this.steps.ThenICanVerifyICreateHmacStringAsync();
+            this.steps.ThenICanVerifyICreateHmacString();
         }
 
         [Fact]
-        public async Task CannotValidateHmacStringDueToDifferent()
+        public async Task CannotValidateHmacStringDueToDifferentAsync()
         {
             this.steps.GivenIHaveAnAppId();
             this.steps.GivenIHaveASecretKey();
@@ -40,11 +40,11 @@ namespace Authentication.Tests.Component
 
             await this.steps.WhenIValidateHmacStringAsync();
 
-            this.steps.ThenICanVerifyICannotValidateHmacStringAsync();
+            this.steps.ThenICanVerifyICannotValidateHmacString();
         }
 
         [Fact(Skip = "Removed body sign validation temporarily")]
-        public async Task CannotValidateHmacStringDueToDifferentJsonRequestBody()
+        public async Task CannotValidateHmacStringDueToDifferentJsonRequestBodyAsync()
         {
             this.steps.GivenIHaveAnAppId();
             this.steps.GivenIHaveASecretKey();
@@ -58,11 +58,11 @@ namespace Authentication.Tests.Component
 
             await this.steps.WhenIValidateHmacStringAsync();
 
-            this.steps.ThenICanVerifyICannotValidateHmacStringAsync();
+            this.steps.ThenICanVerifyICannotValidateHmacString();
         }
 
         [Fact]
-        public async Task CannotValidateHmacStringDueToTamperedHmacString()
+        public async Task CannotValidateHmacStringDueToTamperedHmacStringAsync()
         {
             this.steps.GivenIHaveAnAppId();
             this.steps.GivenIHaveASecretKey();
@@ -76,11 +76,11 @@ namespace Authentication.Tests.Component
 
             await this.steps.WhenIValidateHmacStringAsync();
 
-            this.steps.ThenICanVerifyICannotValidateHmacStringAsync();
+            this.steps.ThenICanVerifyICannotValidateHmacString();
         }
 
         [Fact]
-        public async Task CanValidateHmacString()
+        public async Task CanValidateHmacStringAsync()
         {
             this.steps.GivenIHaveAnAppId();
             this.steps.GivenIHaveASecretKey();
@@ -91,9 +91,9 @@ namespace Authentication.Tests.Component
             await this.steps.WhenICreateHmacStringAsync();
             await this.steps.WhenIValidateHmacStringAsync();
 
-            this.steps.ThenICanVerifyIValidateHmacStringAsync();
+            this.steps.ThenICanVerifyIValidateHmacString();
         }
 
-        #endregion Public Methods
+        #endregion Methods
     }
 }

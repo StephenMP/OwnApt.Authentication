@@ -6,7 +6,7 @@ namespace OwnApt.Authentication.Common.Security
 {
     public static class RsaCryptoServiceProviderExtensions
     {
-        #region Public Methods
+        #region Methods
 
         public static void FromXmlString(this RSA rsa, string rsaXmlString)
         {
@@ -24,10 +24,6 @@ namespace OwnApt.Authentication.Common.Security
             });
         }
 
-        #endregion Public Methods
-
-        #region Private Methods
-
         private static Dictionary<string, byte[]> ParseRsaXmlString(string rsaXmlString)
         {
             var rsaTags = new string[] { "Modulus", "Exponent", "P", "Q", "DP", "DQ", "InverseQ", "D" };
@@ -42,6 +38,6 @@ namespace OwnApt.Authentication.Common.Security
             return rsaPropertyCache;
         }
 
-        #endregion Private Methods
+        #endregion Methods
     }
 }

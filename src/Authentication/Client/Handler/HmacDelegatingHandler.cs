@@ -9,15 +9,15 @@ namespace OwnApt.Authentication.Client.Handler
 {
     public class HmacDelegatingHandler : DelegatingHandler
     {
-        #region Private Fields
+        #region Fields
 
-        private string appId;
-        private IHmacService hmacService;
-        private string secretKey;
+        private readonly string appId;
+        private readonly IHmacService hmacService;
+        private readonly string secretKey;
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Constructors
+        #region Constructors
 
         public HmacDelegatingHandler(string appId, string secretKey)
         {
@@ -26,9 +26,9 @@ namespace OwnApt.Authentication.Client.Handler
             this.secretKey = secretKey;
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Protected Methods
+        #region Methods
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -40,6 +40,6 @@ namespace OwnApt.Authentication.Client.Handler
             return await base.SendAsync(request, cancellationToken);
         }
 
-        #endregion Protected Methods
+        #endregion Methods
     }
 }

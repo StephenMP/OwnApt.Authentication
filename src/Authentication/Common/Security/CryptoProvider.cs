@@ -7,7 +7,7 @@ namespace OwnApt.Authentication.Client.Security
 {
     public static class CryptoProvider
     {
-        #region Private Fields
+        #region Fields
 
         private const string D = "A99fRBYCLmVIBtH9cWA4iKCYqSQU6lAaso0sAizQ/iDQ48kdT6SoAWNqul1GyyXWQ17+ce+bJKNCxfib91y5CeS98tmXxOxI5+VLLepMN2+t61ff1uIL5JgMisLOXD0rJBIHe5w/WD0zdhsBEOcSE03XLnhoXe0gh43lzD77Sa4stnxotT/EnEV2IaB4Ec9SMloVjeesbgz8Du74cy35WFSEREB369oXt33aIHJ2jVWzXVOua4Y2xpxAGJaUImcXTwh8aRGgCbd+wK2pKRscOOPBV/WOkKTd/35tiziQ3LNNn1wtxER0t5ZLFJx7At/VSDTMVvrgkIkGAc5/T/BVDbKo3KtZj47sOuzcd1g1HqDdZbbiMN6GHHq8FYNTbwLxdOoYh+qSWsAR2+OoW6L731jQEuZqKRJNvoGcAUBp1xUpeyu+KotxFrXSnhEC01ZuC003oVipYMPvjpqKbY92xNIdQ1kN/yDtnQQB7KDHPQelFAuWmNXmOc4BBd6tWljBTwHkh0YVDJ0bCUoyN6Guelz8uGkTESpzwFkLfxx5wuPBUzxLqPKqwPBDunNgtWgiNjvYZI3kNNHPa75z46jJRWrr1MZUDFvNZq1DOux9TySARqJetdY1lKPjr4ktZ24OZswka5KKqq2MejE4+iI2C7k+TmT42Ts8AdOKOcqXXkE=";
         private const string DP = "ZTmwrD64ldy6km7GaduiE+RvJvuuXWmrJ4sk6+hZ7BAl7DKIF6oZrtwEsYTMPfC/P8UXvjnu5GQtxc1qYvxmcFzpNQRCqYzezWjISECH02Q3n2eiG4JMnuwCbfw2q8kEBRvz0D0v9Kyr9sabIiUngV02HnUv3SqNMSOoTWBkQKhG9J0AM6bba8DfyLHltcwL8JUlLJz9CLxkfmx+uxi0qxYmnI9X1bVc8uaQI0HlBkfeLAgDeWaj4d2GN6UqG57jCHihHcXhfJohE+IwXcno0CLRSLKkGE/yj4h2zScuG/3iiFCZqZpGZVxRxDy827ck+3O+CfgHpn9s87XFMHnQaQ==";
@@ -20,9 +20,9 @@ namespace OwnApt.Authentication.Client.Security
         private const string Q = "tVYpGitJfnWAKwRklS9X1XVWgymA39lIjn86h5AG6pK0b1D7MIQqC0/ERXrepr0cR8QEng4PTPHpiyY7AM7HYgUFlRmqdahK2Uba7dTXoUXCaucYijQADe7UwKFElUftRuoei0revgyY7tgsSN6MUt0JvPaaqCuishVHTg4VwpTa9N+sohat/JMg0X2SIXe0VFaTPJtANMZsSAduVIkJWdCO4WfiRk6qKm4LycxLHHcbb5iL6+NJRuC828SOte3yNfq/jetRPvw2WCHsu/QJ5VRJgkopGK9rq2EdTHoD3xmNuPJFTDq+bMRuY5lZm2x5cU0njAHUQcfoF6FhddBhwQ==";
         private static readonly Encoding Encoder = Encoding.UTF8;
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Methods
+        #region Methods
 
         public static string Decrypt(string encryptedString)
         {
@@ -81,6 +81,6 @@ namespace OwnApt.Authentication.Client.Security
             }
         }
 
-        #endregion Public Methods
+        #endregion Methods
     }
 }

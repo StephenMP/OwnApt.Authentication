@@ -9,21 +9,21 @@ namespace Authentication.Tests.Component
 {
     internal class HmacServiceSteps
     {
-        #region Private Fields
+        #region Fields
 
+        private readonly Random random = new Random();
+        private readonly string[] requestArray = { "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" };
         private string appId;
         private IHmacService hmacService;
         private string hmacString;
         private string httpMethod;
         private bool isValid;
         private string jsonRequestBody;
-        private Random random = new Random();
-        private string[] requestArray = new string[] { "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" };
         private string secretKey;
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Internal Methods
+        #region Methods
 
         internal void GivenIHaveAJsonRequestBody()
         {
@@ -57,12 +57,12 @@ namespace Authentication.Tests.Component
             this.hmacString = $"{hmacArray[0]}:{hmacArray[1]}:{hmacArray[2]}:{hmacArray[3]}:{hmacArray[4]}:{hmacArray[5]}";
         }
 
-        internal void ThenICanVerifyICannotValidateHmacStringAsync()
+        internal void ThenICanVerifyICannotValidateHmacString()
         {
             Assert.False(this.isValid);
         }
 
-        internal void ThenICanVerifyICreateHmacStringAsync()
+        internal void ThenICanVerifyICreateHmacString()
         {
             Assert.NotNull(this.hmacString);
             Assert.NotEmpty(this.hmacString);
@@ -73,7 +73,7 @@ namespace Authentication.Tests.Component
             Assert.Equal(6, hmacArray.Length);
         }
 
-        internal void ThenICanVerifyIValidateHmacStringAsync()
+        internal void ThenICanVerifyIValidateHmacString()
         {
             Assert.True(isValid);
         }
@@ -88,6 +88,6 @@ namespace Authentication.Tests.Component
             this.isValid = await this.hmacService.ValidateHmacStringAsync(this.hmacString, this.secretKey, this.jsonRequestBody);
         }
 
-        #endregion Internal Methods
+        #endregion Methods
     }
 }
