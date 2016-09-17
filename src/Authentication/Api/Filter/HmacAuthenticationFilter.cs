@@ -10,14 +10,14 @@ namespace OwnApt.Authentication.Api.Filter
 {
     public sealed class HmacAuthenticationFilter : ActionFilterAttribute, IAsyncAuthorizationFilter
     {
-        #region Fields
+        #region Private Fields
 
         private readonly Dictionary<string, string> allowedApps;
         private readonly IHmacService hmacService;
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Constructors
+        #region Public Constructors
 
         public HmacAuthenticationFilter()
         {
@@ -28,9 +28,9 @@ namespace OwnApt.Authentication.Api.Filter
             };
         }
 
-        #endregion Constructors
+        #endregion Public Constructors
 
-        #region Methods
+        #region Public Methods
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
@@ -78,6 +78,8 @@ namespace OwnApt.Authentication.Api.Filter
             }
         }
 
+        #endregion Public Methods
+
         //private static async Task<string> ReadRequestBodyAsync(Stream body)
         //{
         //    string requestBody;
@@ -89,11 +91,13 @@ namespace OwnApt.Authentication.Api.Filter
         //    return await Task.FromResult(requestBody);
         //}
 
+        #region Private Methods
+
         private async Task<bool> ValidateAppIdAsync(string appId)
         {
             return await Task.FromResult(this.allowedApps.ContainsKey(appId));
         }
 
-        #endregion Methods
+        #endregion Private Methods
     }
 }

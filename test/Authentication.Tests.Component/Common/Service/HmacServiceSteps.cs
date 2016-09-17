@@ -9,7 +9,7 @@ namespace Authentication.Tests.Component
 {
     internal class HmacServiceSteps
     {
-        #region Fields
+        #region Private Fields
 
         private readonly Random random = new Random();
         private readonly string[] requestArray = { "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" };
@@ -21,9 +21,9 @@ namespace Authentication.Tests.Component
         private string jsonRequestBody;
         private string secretKey;
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Methods
+        #region Internal Methods
 
         internal void GivenIHaveAJsonRequestBody()
         {
@@ -88,6 +88,6 @@ namespace Authentication.Tests.Component
             this.isValid = await this.hmacService.ValidateHmacStringAsync(this.hmacString, this.secretKey, this.jsonRequestBody);
         }
 
-        #endregion Methods
+        #endregion Internal Methods
     }
 }

@@ -5,13 +5,13 @@ namespace Authentication.Tests.Component
 {
     public class HmacServiceFeatures
     {
-        #region Fields
+        #region Private Fields
 
         private readonly HmacServiceSteps steps = new HmacServiceSteps();
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Methods
+        #region Public Methods
 
         [Fact]
         public async Task CanCreateHmacStringAsync()
@@ -94,6 +94,6 @@ namespace Authentication.Tests.Component
             this.steps.ThenICanVerifyIValidateHmacString();
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }

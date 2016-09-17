@@ -8,7 +8,7 @@ namespace OwnApt.Authentication.Common.Service
 {
     public class HmacService : IHmacService
     {
-        #region Methods
+        #region Public Methods
 
         public async Task<string> CreateHmacStringAsync(string appId, string secretKey, string httpMethod, string jsonRequestBody = "")
         {
@@ -37,6 +37,10 @@ namespace OwnApt.Authentication.Common.Service
                 //&& await ValidateBody(providedSignedRequestBody, jsonRequestBody)
                 && await ValidateSignedSecretKeyAsync(secretKey, httpMethod, timeStamp, guidSignature, providedSignedSecretKey, providedSignedRequestBody);
         }
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private async static Task<string> ComputeBase64SecretyKeyCombinedAsync(string secretKey, string httpMethod, long utcFileTimestamp, string guidSignature, string signedRequestBody)
         {
@@ -92,6 +96,6 @@ namespace OwnApt.Authentication.Common.Service
             return await Task.FromResult(timeStampDateTime.AddMinutes(1) > DateTime.UtcNow);
         }
 
-        #endregion Methods
+        #endregion Private Methods
     }
 }
