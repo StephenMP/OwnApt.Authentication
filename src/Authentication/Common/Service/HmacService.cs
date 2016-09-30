@@ -10,20 +10,20 @@ namespace OwnApt.Authentication.Common.Service
     {
         #region Public Methods
 
-        public async Task<string> CreateHmacStringAsync(string appId, string secretKey, string httpMethod, string jsonRequestBody = "")
+        public string CreateHmacString(string appId, string secretKey, string httpMethod)//, string jsonRequestBody = "")
         {
-            jsonRequestBody = jsonRequestBody ?? "";
-            var computedBase64SignedBody = await ComputeSignedRequestBodyAsync(jsonRequestBody);
+            //jsonRequestBody = jsonRequestBody ?? "";
+            //var computedBase64SignedBody = ComputeSignedRequestBody(jsonRequestBody);
             var guidSignature = Guid.NewGuid().ToString("N");
             var utcFileTimestamp = DateTime.UtcNow.ToFileTimeUtc();
-            var computedBase64SecretKeyCombined = await ComputeBase64SecretyKeyCombinedAsync(secretKey, httpMethod, utcFileTimestamp, guidSignature, computedBase64SignedBody);
+            var computedBase64SecretKeyCombined = ComputeBase64SecretyKeyCombined(secretKey, httpMethod, utcFileTimestamp, guidSignature);//, computedBase64SignedBody);
 
-            return $"{appId}:{computedBase64SecretKeyCombined}:{httpMethod}:{utcFileTimestamp}:{guidSignature}:{computedBase64SignedBody}";
+            return $"{appId}:{computedBase64SecretKeyCombined}:{httpMethod}:{utcFileTimestamp}:{guidSignature}";//:{computedBase64SignedBody}";
         }
 
-        public async Task<bool> ValidateHmacStringAsync(string hmacString, string secretKey, string jsonRequestBody = "")
+        public bool ValidateHmacString(string hmacString, string secretKey)//, string jsonRequestBody = "")
         {
-            jsonRequestBody = jsonRequestBody ?? "";
+            //jsonRequestBody = jsonRequestBody ?? "";
             var hmacArray = hmacString.Split(':');
             var appId = hmacArray[0];
             var providedSignedSecretKey = hmacArray[1];
@@ -32,20 +32,20 @@ namespace OwnApt.Authentication.Common.Service
             var guidSignature = hmacArray[4];
             var providedSignedRequestBody = hmacArray.Length == 6 ? hmacArray[5] : "";
 
-            return await ValidateHmacArrayAsync(hmacArray)
-                && await ValidateTimeToLiveAsync(timeStamp)
+            return ValidateHmacArray(hmacArray)
+                && ValidateTimeToLive(timeStamp)
                 //&& await ValidateBody(providedSignedRequestBody, jsonRequestBody)
-                && await ValidateSignedSecretKeyAsync(secretKey, httpMethod, timeStamp, guidSignature, providedSignedSecretKey, providedSignedRequestBody);
+                && ValidateSignedSecretKey(secretKey, httpMethod, timeStamp, guidSignature, providedSignedSecretKey);//, providedSignedRequestBody);
         }
 
         #endregion Public Methods
 
         #region Private Methods
 
-        private async static Task<string> ComputeBase64SecretyKeyCombinedAsync(string secretKey, string httpMethod, long utcFileTimestamp, string guidSignature, string signedRequestBody)
+        private static string ComputeBase64SecretyKeyCombined(string secretKey, string httpMethod, long utcFileTimestamp, string guidSignature)//, string signedRequestBody)
         {
             var byteSecretKey = Encoding.UTF8.GetBytes(secretKey);
-            var secretKeyCombined = $"{secretKey}:{httpMethod}:{utcFileTimestamp}:{guidSignature}:{signedRequestBody}";
+            var secretKeyCombined = $"{secretKey}:{httpMethod}:{utcFileTimestamp}:{guidSignature}";//:{signedRequestBody}";
             var byteSecretKeyCombined = Encoding.UTF8.GetBytes(secretKeyCombined);
             byte[] hashedSecretKey;
 
@@ -55,23 +55,23 @@ namespace OwnApt.Authentication.Common.Service
             }
 
             var computedBase64SecretKeyCombined = Convert.ToBase64String(byteSecretKeyCombined);
-            return await Task.FromResult(computedBase64SecretKeyCombined);
+            return computedBase64SecretKeyCombined;
         }
 
-        private async static Task<string> ComputeSignedRequestBodyAsync(string jsonRequestBody)
-        {
-            var byteBodyString = Encoding.UTF8.GetBytes(jsonRequestBody);
-            byte[] md5SignedBody;
+        //private async static Task<string> ComputeSignedRequestBodyAsync(string jsonRequestBody)
+        //{
+        //    var byteBodyString = Encoding.UTF8.GetBytes(jsonRequestBody);
+        //    byte[] md5SignedBody;
 
-            using (var md5 = MD5.Create())
-            {
-                md5SignedBody = md5.ComputeHash(byteBodyString);
-            }
+        //    using (var md5 = MD5.Create())
+        //    {
+        //        md5SignedBody = md5.ComputeHash(byteBodyString);
+        //    }
 
-            var computedBase64SignedBody = Convert.ToBase64String(md5SignedBody);
+        //    var computedBase64SignedBody = Convert.ToBase64String(md5SignedBody);
 
-            return await Task.FromResult(computedBase64SignedBody);
-        }
+        //    return await Task.FromResult(computedBase64SignedBody);
+        //}
 
         //private async static Task<bool> ValidateBodyAsync(string providedSignedRequestBody, string jsonRequestBody)
         //{
@@ -79,21 +79,24 @@ namespace OwnApt.Authentication.Common.Service
         //    return await Task.FromResult(computedBase64SignedBody == providedSignedRequestBody);
         //}
 
-        private async static Task<bool> ValidateHmacArrayAsync(string[] hmacArray)
+        private static bool ValidateHmacArray(string[] hmacArray)
         {
-            return await Task.FromResult(hmacArray.Length == 5 || hmacArray.Length == 6);
+            var isValid = hmacArray.Length == 5 || hmacArray.Length == 6;
+            return isValid;
         }
 
-        private async static Task<bool> ValidateSignedSecretKeyAsync(string secretKey, string httpMethod, long utcFileTimestamp, string guidSignature, string providedSignedSecretKey, string signedRequestBody)
+        private static bool ValidateSignedSecretKey(string secretKey, string httpMethod, long utcFileTimestamp, string guidSignature, string providedSignedSecretKey)//, string signedRequestBody)
         {
-            var computedSignedSecretKey = await ComputeBase64SecretyKeyCombinedAsync(secretKey, httpMethod, utcFileTimestamp, guidSignature, signedRequestBody);
-            return await Task.FromResult(computedSignedSecretKey == providedSignedSecretKey);
+            var computedSignedSecretKey = ComputeBase64SecretyKeyCombined(secretKey, httpMethod, utcFileTimestamp, guidSignature);//, signedRequestBody);
+            var isValid = computedSignedSecretKey == providedSignedSecretKey;
+            return isValid;
         }
 
-        private async static Task<bool> ValidateTimeToLiveAsync(long utcFileTimestamp)
+        private static bool ValidateTimeToLive(long utcFileTimestamp)
         {
             var timeStampDateTime = DateTime.FromFileTimeUtc(utcFileTimestamp);
-            return await Task.FromResult(timeStampDateTime.AddMinutes(1) > DateTime.UtcNow);
+            var isValid = timeStampDateTime.AddMinutes(1) > DateTime.UtcNow;
+            return isValid;
         }
 
         #endregion Private Methods

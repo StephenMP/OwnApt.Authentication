@@ -35,7 +35,7 @@ namespace OwnApt.Authentication.Api.Filter
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             // Get and check the authorization header
-            var authHeader = context.HttpContext.Request.Headers["authorization"];
+            var authHeader = await Task.FromResult(context.HttpContext.Request.Headers["authorization"]);
             if (authHeader == default(StringValues))
             {
                 context.Result = new UnauthorizedResult();
@@ -53,7 +53,7 @@ namespace OwnApt.Authentication.Api.Filter
 
             // Run the values through our HMAC algorithm
             var appId = authHeaderValues[1].Split(':')[0];
-            var appIsRecognized = await ValidateAppIdAsync(appId);
+            var appIsRecognized = ValidateAppId(appId);
             if (!appIsRecognized)
             {
                 context.Result = new UnauthorizedResult();
@@ -70,7 +70,7 @@ namespace OwnApt.Authentication.Api.Filter
 
             //var requestBody = await this.ReadRequestBodyAsync(bodyStreamToConsume);
             var secretKey = this.allowedApps[appId];
-            var isValid = await this.hmacService.ValidateHmacStringAsync(authHeaderValues[1], secretKey, "");//, requestBody);
+            var isValid = this.hmacService.ValidateHmacString(authHeaderValues[1], secretKey);//, requestBody);
             if (!isValid)
             {
                 context.Result = new UnauthorizedResult();
@@ -93,9 +93,10 @@ namespace OwnApt.Authentication.Api.Filter
 
         #region Private Methods
 
-        private async Task<bool> ValidateAppIdAsync(string appId)
+        private bool ValidateAppId(string appId)
         {
-            return await Task.FromResult(this.allowedApps.ContainsKey(appId));
+            var isValid = this.allowedApps.ContainsKey(appId);
+            return isValid;
         }
 
         #endregion Private Methods

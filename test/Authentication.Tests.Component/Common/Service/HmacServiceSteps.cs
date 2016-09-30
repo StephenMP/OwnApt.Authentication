@@ -53,8 +53,8 @@ namespace Authentication.Tests.Component
         internal void GivenIHaveATamperedHmacString()
         {
             var hmacArray = this.hmacString.Split(':');
-            hmacArray[5] = "\"thisIsANew\":\"requestBody\"";
-            this.hmacString = $"{hmacArray[0]}:{hmacArray[1]}:{hmacArray[2]}:{hmacArray[3]}:{hmacArray[4]}:{hmacArray[5]}";
+            hmacArray[1] = Guid.NewGuid().ToString("N");
+            this.hmacString = $"{hmacArray[0]}:{hmacArray[1]}:{hmacArray[2]}:{hmacArray[3]}:{hmacArray[4]}";//:{hmacArray[5]}";
         }
 
         internal void ThenICanVerifyICannotValidateHmacString()
@@ -70,7 +70,7 @@ namespace Authentication.Tests.Component
             var hmacArray = hmacString.Split(':');
 
             Assert.Equal(this.appId, hmacArray[0]);
-            Assert.Equal(6, hmacArray.Length);
+            Assert.Equal(5, hmacArray.Length);
         }
 
         internal void ThenICanVerifyIValidateHmacString()
@@ -78,14 +78,14 @@ namespace Authentication.Tests.Component
             Assert.True(isValid);
         }
 
-        internal async Task WhenICreateHmacStringAsync()
+        internal void WhenICreateHmacString()
         {
-            this.hmacString = await this.hmacService.CreateHmacStringAsync(this.appId, this.secretKey, this.httpMethod, this.jsonRequestBody);
+            this.hmacString = this.hmacService.CreateHmacString(this.appId, this.secretKey, this.httpMethod);//, this.jsonRequestBody);
         }
 
-        internal async Task WhenIValidateHmacStringAsync()
+        internal void WhenIValidateHmacString()
         {
-            this.isValid = await this.hmacService.ValidateHmacStringAsync(this.hmacString, this.secretKey, this.jsonRequestBody);
+            this.isValid = this.hmacService.ValidateHmacString(this.hmacString, this.secretKey);//, this.jsonRequestBody);
         }
 
         #endregion Internal Methods
